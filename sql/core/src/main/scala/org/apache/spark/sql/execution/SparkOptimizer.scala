@@ -68,6 +68,7 @@ class SparkOptimizer(
       BooleanSimplification,
       PruneFilters)) ++
     postHocOptimizationBatches :+
+    Batch("AggregatePushdownThroughJoins", fixedPoint, AggregatePushdownThroughJoins) :+
     Batch("Extract Python UDFs", Once,
       ExtractPythonUDFFromJoinCondition,
       // `ExtractPythonUDFFromJoinCondition` can convert a join to a cartesian product.
