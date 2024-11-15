@@ -19,7 +19,7 @@
                   :     :     :  :  :           +- * ColumnarToRow (2)
                   :     :     :  :  :              +- Scan parquet spark_catalog.default.web_sales (1)
                   :     :     :  :  +- * Project (16)
-                  :     :     :  :     +- * SortMergeJoin Inner (15)
+                  :     :     :  :     +- * SortMergeJoin LeftSemi (15)
                   :     :     :  :        :- * Sort (12)
                   :     :     :  :        :  +- Exchange (11)
                   :     :     :  :        :     +- * Project (10)
@@ -29,7 +29,7 @@
                   :     :     :  :        +- * Sort (14)
                   :     :     :  :           +- ReusedExchange (13)
                   :     :     :  +- * Project (30)
-                  :     :     :     +- * SortMergeJoin Inner (29)
+                  :     :     :     +- * SortMergeJoin LeftSemi (29)
                   :     :     :        :- * SortMergeJoin Inner (26)
                   :     :     :        :  :- * Sort (23)
                   :     :     :        :  :  +- Exchange (22)
@@ -120,12 +120,12 @@ Arguments: [ws_order_number#18 ASC NULLS FIRST], false, 0
 (15) SortMergeJoin [codegen id : 7]
 Left keys [1]: [ws_order_number#15]
 Right keys [1]: [ws_order_number#18]
-Join type: Inner
+Join type: LeftSemi
 Join condition: NOT (ws_warehouse_sk#14 = ws_warehouse_sk#17)
 
 (16) Project [codegen id : 7]
 Output [1]: [ws_order_number#15]
-Input [4]: [ws_warehouse_sk#14, ws_order_number#15, ws_warehouse_sk#17, ws_order_number#18]
+Input [2]: [ws_warehouse_sk#14, ws_order_number#15]
 
 (17) SortMergeJoin [codegen id : 8]
 Left keys [1]: [ws_order_number#4]
@@ -182,12 +182,12 @@ Arguments: [ws_order_number#24 ASC NULLS FIRST], false, 0
 (29) SortMergeJoin [codegen id : 16]
 Left keys [1]: [ws_order_number#22]
 Right keys [1]: [ws_order_number#24]
-Join type: Inner
+Join type: LeftSemi
 Join condition: NOT (ws_warehouse_sk#21 = ws_warehouse_sk#23)
 
 (30) Project [codegen id : 16]
 Output [1]: [wr_order_number#19]
-Input [5]: [wr_order_number#19, ws_warehouse_sk#21, ws_order_number#22, ws_warehouse_sk#23, ws_order_number#24]
+Input [3]: [wr_order_number#19, ws_warehouse_sk#21, ws_order_number#22]
 
 (31) SortMergeJoin [codegen id : 20]
 Left keys [1]: [ws_order_number#4]
