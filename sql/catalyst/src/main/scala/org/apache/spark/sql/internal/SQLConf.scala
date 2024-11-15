@@ -3404,6 +3404,15 @@ object SQLConf {
       .booleanConf
       .createWithDefault(true)
 
+  val CONVERT_INNERJOIN_TO_SEMIJOINS_ENABLED =
+    buildConf("spark.sql.optimizer.ConvertInnerToSemiJoins.enabled")
+      .internal()
+      .doc(s"When true, the optimizer will try to convert inner join to" +
+        "semi join for optimization.")
+      .version("3.5.1")
+      .booleanConf
+      .createWithDefault(true)
+
   val PULL_HINTS_INTO_SUBQUERIES =
     buildConf("spark.sql.optimizer.pullHintsIntoSubqueries")
       .internal()

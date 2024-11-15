@@ -16,7 +16,7 @@ TakeOrderedAndProject (42)
                :     :     :  :  :     +- Scan parquet spark_catalog.default.customer (1)
                :     :     :  :  +- BroadcastExchange (9)
                :     :     :  :     +- * Project (8)
-               :     :     :  :        +- * BroadcastHashJoin Inner BuildRight (7)
+               :     :     :  :        +- * BroadcastHashJoin LeftSemi BuildRight (7)
                :     :     :  :           :- * ColumnarToRow (5)
                :     :     :  :           :  +- Scan parquet spark_catalog.default.store_sales (4)
                :     :     :  :           +- ReusedExchange (6)
@@ -73,12 +73,12 @@ Output [1]: [d_date_sk#7]
 (7) BroadcastHashJoin [codegen id : 2]
 Left keys [1]: [ss_sold_date_sk#5]
 Right keys [1]: [d_date_sk#7]
-Join type: Inner
+Join type: LeftSemi
 Join condition: None
 
 (8) Project [codegen id : 2]
 Output [1]: [ss_customer_sk#4]
-Input [3]: [ss_customer_sk#4, ss_sold_date_sk#5, d_date_sk#7]
+Input [2]: [ss_customer_sk#4, ss_sold_date_sk#5]
 
 (9) BroadcastExchange
 Input [1]: [ss_customer_sk#4]

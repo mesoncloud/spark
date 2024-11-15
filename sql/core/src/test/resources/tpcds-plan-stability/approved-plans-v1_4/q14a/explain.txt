@@ -43,7 +43,7 @@ TakeOrderedAndProject (105)
                :                    :     :                 :              :           :     +- Scan parquet spark_catalog.default.item (10)
                :                    :     :                 :              :           +- BroadcastExchange (25)
                :                    :     :                 :              :              +- * Project (24)
-               :                    :     :                 :              :                 +- * BroadcastHashJoin Inner BuildRight (23)
+               :                    :     :                 :              :                 +- * BroadcastHashJoin LeftSemi BuildRight (23)
                :                    :     :                 :              :                    :- * Project (21)
                :                    :     :                 :              :                    :  +- * BroadcastHashJoin Inner BuildRight (20)
                :                    :     :                 :              :                    :     :- * Filter (15)
@@ -57,7 +57,7 @@ TakeOrderedAndProject (105)
                :                    :     :                 :              +- ReusedExchange (30)
                :                    :     :                 +- BroadcastExchange (45)
                :                    :     :                    +- * Project (44)
-               :                    :     :                       +- * BroadcastHashJoin Inner BuildRight (43)
+               :                    :     :                       +- * BroadcastHashJoin LeftSemi BuildRight (43)
                :                    :     :                          :- * Project (41)
                :                    :     :                          :  +- * BroadcastHashJoin Inner BuildRight (40)
                :                    :     :                          :     :- * Filter (38)
@@ -213,12 +213,12 @@ Output [1]: [d_date_sk#23]
 (23) BroadcastHashJoin [codegen id : 3]
 Left keys [1]: [cs_sold_date_sk#18]
 Right keys [1]: [d_date_sk#23]
-Join type: Inner
+Join type: LeftSemi
 Join condition: None
 
 (24) Project [codegen id : 3]
 Output [3]: [i_brand_id#20, i_class_id#21, i_category_id#22]
-Input [5]: [cs_sold_date_sk#18, i_brand_id#20, i_class_id#21, i_category_id#22, d_date_sk#23]
+Input [4]: [cs_sold_date_sk#18, i_brand_id#20, i_class_id#21, i_category_id#22]
 
 (25) BroadcastExchange
 Input [3]: [i_brand_id#20, i_class_id#21, i_category_id#22]
@@ -309,12 +309,12 @@ Output [1]: [d_date_sk#34]
 (43) BroadcastHashJoin [codegen id : 9]
 Left keys [1]: [ws_sold_date_sk#29]
 Right keys [1]: [d_date_sk#34]
-Join type: Inner
+Join type: LeftSemi
 Join condition: None
 
 (44) Project [codegen id : 9]
 Output [3]: [i_brand_id#31, i_class_id#32, i_category_id#33]
-Input [5]: [ws_sold_date_sk#29, i_brand_id#31, i_class_id#32, i_category_id#33, d_date_sk#34]
+Input [4]: [ws_sold_date_sk#29, i_brand_id#31, i_class_id#32, i_category_id#33]
 
 (45) BroadcastExchange
 Input [3]: [i_brand_id#31, i_class_id#32, i_category_id#33]
