@@ -49,33 +49,32 @@ WholeStageCodegen (21)
                                                     ReusedExchange [ws_warehouse_sk,ws_order_number] #3
                               InputAdapter
                                 WholeStageCodegen (16)
-                                  Project [wr_order_number]
-                                    SortMergeJoin [wr_order_number,ws_order_number]
-                                      InputAdapter
-                                        WholeStageCodegen (10)
-                                          Sort [wr_order_number]
+                                  SortMergeJoin [wr_order_number,ws_order_number]
+                                    InputAdapter
+                                      WholeStageCodegen (10)
+                                        Sort [wr_order_number]
+                                          InputAdapter
+                                            Exchange [wr_order_number] #4
+                                              WholeStageCodegen (9)
+                                                Project [wr_order_number]
+                                                  Filter [wr_order_number]
+                                                    ColumnarToRow
+                                                      InputAdapter
+                                                        Scan parquet spark_catalog.default.web_returns [wr_order_number,wr_returned_date_sk]
+                                    InputAdapter
+                                      WholeStageCodegen (15)
+                                        Project [ws_order_number]
+                                          SortMergeJoin [ws_order_number,ws_order_number,ws_warehouse_sk,ws_warehouse_sk]
                                             InputAdapter
-                                              Exchange [wr_order_number] #4
-                                                WholeStageCodegen (9)
-                                                  Project [wr_order_number]
-                                                    Filter [wr_order_number]
-                                                      ColumnarToRow
-                                                        InputAdapter
-                                                          Scan parquet spark_catalog.default.web_returns [wr_order_number,wr_returned_date_sk]
-                                      InputAdapter
-                                        WholeStageCodegen (15)
-                                          Project [ws_order_number]
-                                            SortMergeJoin [ws_order_number,ws_order_number,ws_warehouse_sk,ws_warehouse_sk]
-                                              InputAdapter
-                                                WholeStageCodegen (12)
-                                                  Sort [ws_order_number]
-                                                    InputAdapter
-                                                      ReusedExchange [ws_warehouse_sk,ws_order_number] #3
-                                              InputAdapter
-                                                WholeStageCodegen (14)
-                                                  Sort [ws_order_number]
-                                                    InputAdapter
-                                                      ReusedExchange [ws_warehouse_sk,ws_order_number] #3
+                                              WholeStageCodegen (12)
+                                                Sort [ws_order_number]
+                                                  InputAdapter
+                                                    ReusedExchange [ws_warehouse_sk,ws_order_number] #3
+                                            InputAdapter
+                                              WholeStageCodegen (14)
+                                                Sort [ws_order_number]
+                                                  InputAdapter
+                                                    ReusedExchange [ws_warehouse_sk,ws_order_number] #3
                             InputAdapter
                               BroadcastExchange #5
                                 WholeStageCodegen (17)
