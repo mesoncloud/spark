@@ -9,7 +9,7 @@
             :     +- Exchange (7)
             :        +- * HashAggregate (6)
             :           +- * Project (5)
-            :              +- * BroadcastHashJoin Inner BuildRight (4)
+            :              +- * BroadcastHashJoin LeftSemi BuildRight (4)
             :                 :- * ColumnarToRow (2)
             :                 :  +- Scan parquet spark_catalog.default.store_sales (1)
             :                 +- ReusedExchange (3)
@@ -18,7 +18,7 @@
                   +- Exchange (16)
                      +- * HashAggregate (15)
                         +- * Project (14)
-                           +- * BroadcastHashJoin Inner BuildRight (13)
+                           +- * BroadcastHashJoin LeftSemi BuildRight (13)
                               :- * ColumnarToRow (11)
                               :  +- Scan parquet spark_catalog.default.catalog_sales (10)
                               +- ReusedExchange (12)
@@ -40,12 +40,12 @@ Output [1]: [d_date_sk#5]
 (4) BroadcastHashJoin [codegen id : 2]
 Left keys [1]: [ss_sold_date_sk#3]
 Right keys [1]: [d_date_sk#5]
-Join type: Inner
+Join type: LeftSemi
 Join condition: None
 
 (5) Project [codegen id : 2]
 Output [2]: [ss_item_sk#1, ss_customer_sk#2]
-Input [4]: [ss_item_sk#1, ss_customer_sk#2, ss_sold_date_sk#3, d_date_sk#5]
+Input [3]: [ss_item_sk#1, ss_customer_sk#2, ss_sold_date_sk#3]
 
 (6) HashAggregate [codegen id : 2]
 Input [2]: [ss_item_sk#1, ss_customer_sk#2]
@@ -85,12 +85,12 @@ Output [1]: [d_date_sk#11]
 (13) BroadcastHashJoin [codegen id : 5]
 Left keys [1]: [cs_sold_date_sk#10]
 Right keys [1]: [d_date_sk#11]
-Join type: Inner
+Join type: LeftSemi
 Join condition: None
 
 (14) Project [codegen id : 5]
 Output [2]: [cs_bill_customer_sk#8, cs_item_sk#9]
-Input [4]: [cs_bill_customer_sk#8, cs_item_sk#9, cs_sold_date_sk#10, d_date_sk#11]
+Input [3]: [cs_bill_customer_sk#8, cs_item_sk#9, cs_sold_date_sk#10]
 
 (15) HashAggregate [codegen id : 5]
 Input [2]: [cs_bill_customer_sk#8, cs_item_sk#9]
